@@ -326,3 +326,7 @@ header {
 	background-color: var(--color-gray-20);
 }
 
+.svg-container {
+	display: flex;
+	justify-content: center;
+}

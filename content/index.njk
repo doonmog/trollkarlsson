@@ -6,7 +6,9 @@ const eleventyNavigation = {
 
 const numberOfLatestPostsToShow = 3;
 ---
+<div class="svg-container">
 {% include "layouts/trollkarlsson.drawio.svg" %}
+</div>
 
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
