@@ -1,5 +1,5 @@
 export default {
-	title: "Trollkarlssons Blog",
+	title: "trollkarlsson.com",
 	url: "https://trollkarlsson.com/",
 	language: "en",
 	description: "Portfolio.",
