@@ -4,7 +4,7 @@ class ThemeToggle extends HTMLElement {
     super();
 
     this.STORAGE_KEY = 'theme-preference';
-    this.theme = document.firstElementChild.getAttribute('data-theme') || 'light';
+    this.theme = this.getThemePreference();
 
     this.onclick = this.onclick.bind(this);
   }
@@ -31,6 +31,15 @@ class ThemeToggle extends HTMLElement {
   }
 
 
+
+  getThemePreference() {
+    const storedPreference = localStorage.getItem(this.STORAGE_KEY);
+    if (storedPreference) {
+      return storedPreference;
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
 
   setPreference() {
     localStorage.setItem(this.STORAGE_KEY, this.theme);

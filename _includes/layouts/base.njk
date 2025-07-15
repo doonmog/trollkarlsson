@@ -7,24 +7,6 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 
-		<script>
-			// IIFE to set the theme before the page renders
-			(function() {
-				const STORAGE_KEY = 'theme-preference';
-				
-				const getThemePreference = () => {
-					const storedPreference = localStorage.getItem(STORAGE_KEY);
-					if (storedPreference) {
-						return storedPreference;
-					}
-					return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				};
-
-				const theme = getThemePreference();
-				document.firstElementChild.setAttribute('data-theme', theme);
-			})();
-		</script>
-
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
 
@@ -56,6 +38,13 @@
 
 		{#- Add the heading-anchors web component to the JavaScript bundle #}
 		<script type="module">{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}</script>
+		<script>
+			// Set theme before page render to prevent FOUC
+			(function() {
+				const theme = localStorage.getItem('theme-preference') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
 	</head>
 	<body>
 		<a href="#main" id="skip-link" class="visually-hidden">Skip to main content</a>
