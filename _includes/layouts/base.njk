@@ -54,6 +54,7 @@
 				{%- endfor %}
 				</ul>
 			</nav>
+			<theme-toggle></theme-toggle>
 		</header>
 
 		<main id="main">
@@ -69,6 +70,7 @@
 		</footer>
 
 		<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
+		<script type="module">{% include "components/theme-toggle.js" %}</script>
 		<script type="module" src="{% getBundleFileUrl "js" %}"></script>
 	</body>
 </html>

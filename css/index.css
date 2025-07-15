@@ -20,8 +20,21 @@
 	--syntax-tab-size: 2;
 }
 
+[data-theme="dark"] {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #dad8d8;
+
+	/* --text-color is assigned to --color-gray-_ above */
+	--text-color-link: #1493fb;
+	--text-color-link-active: #6969f7;
+	--text-color-link-visited: #a6a6f8;
+
+	--background-color: #15202b;
+}
+
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root:not([data-theme]) {
 		--color-gray-20: #e0e0e0;
 		--color-gray-50: #C0C0C0;
 		--color-gray-90: #dad8d8;
@@ -34,7 +47,6 @@
 		--background-color: #15202b;
 	}
 }
-
 
 /* Global stylesheet */
 * {
@@ -294,5 +306,23 @@ header {
 }
 .post-metadata time {
 	margin-right: 1em;
+}
+
+.theme-toggle {
+	display: inline-flex;
+}
+
+.theme-toggle__button {
+	background: transparent;
+	border: 1px solid var(--color-gray-50);
+	border-radius: 5px;
+	padding: 0.25em 0.5em;
+	cursor: pointer;
+	color: var(--text-color);
+	font-size: 1em;
+}
+
+.theme-toggle__button:hover {
+	background-color: var(--color-gray-20);
 }
 
