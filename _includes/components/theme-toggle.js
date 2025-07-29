@@ -4,7 +4,7 @@ class ThemeToggle extends HTMLElement {
     super();
 
     this.STORAGE_KEY = 'theme-preference';
-    this.theme = this.getThemePreference();
+    this.button = null;
 
     this.onclick = this.onclick.bind(this);
   }
@@ -20,43 +20,26 @@ class ThemeToggle extends HTMLElement {
 
     this.button = this.querySelector('button');
     this.button.addEventListener('click', this.onclick);
-
-    this.reflectPreference();
+    this.updateButtonLabelAndIcon();
   }
 
   onclick(e) {
     e.preventDefault();
-    this.theme = this.theme === 'light' ? 'dark' : 'light';
-    this.setPreference();
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem(this.STORAGE_KEY, newTheme);
+    this.updateButtonLabelAndIcon();
   }
 
+  updateButtonLabelAndIcon() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-
-  getThemePreference() {
-    const storedPreference = localStorage.getItem(this.STORAGE_KEY);
-    if (storedPreference) {
-      return storedPreference;
-    }
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-
-  setPreference() {
-    localStorage.setItem(this.STORAGE_KEY, this.theme);
-    this.reflectPreference();
-  }
-
-  reflectPreference() {
-    document.firstElementChild.setAttribute('data-theme', this.theme);
-    this.button.querySelector('.visually-hidden').textContent = `Switch to ${this.theme === 'light' ? 'dark' : 'light'} theme`;
-
-    // You might want to add icons here
+    this.button.querySelector('.visually-hidden').textContent = `Switch to ${nextTheme} theme`;
     const icon = this.button.querySelector('.theme-toggle__icon');
-    if (this.theme === 'light') {
-      icon.textContent = '☀️';
-    } else {
-      icon.textContent = '🌙';
-    }
+    icon.textContent = currentTheme === 'light' ? '☀️' : '🌙';
   }
 }
 
