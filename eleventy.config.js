@@ -96,29 +96,28 @@ export default async function(eleventyConfig) {
 				decoding: "async",
 			}
 		},
-
 		sharpOptions: {
 			animated: true,
 		},
 	});
 
 	// Filters
-	eleventyConfig.addPlugin(pluginFilters);
+		eleventyConfig.addPlugin(pluginFilters);
 
-	eleventyConfig.addPlugin(IdAttributePlugin, {
-		// by default we use Eleventy’s built-in `slugify` filter:
-		// slugify: eleventyConfig.getFilter("slugify"),
-		// selector: "h1,h2,h3,h4,h5,h6", // default
-	});
+		eleventyConfig.addPlugin(IdAttributePlugin, {
+			// by default we use Eleventy’s built-in `slugify` filter:
+			// slugify: eleventyConfig.getFilter("slugify"),
+			// selector: "h1,h2,h3,h4,h5,h6", // default
+		});
 
 	eleventyConfig.addShortcode("currentBuildDate", () => {
 		return (new Date()).toISOString();
 	});
+	eleventyConfig.addPairedShortcode("hoverReveal", (content, src, alt = "") => {
+		return `<span class="hover-reveal" tabindex="0">${content}<span class="hover-reveal__image"><img src="${src}" alt="${alt}" eleventy:widths="400,800" sizes="(max-width: 400px) 90vw, 400px"></span></span>`;
+	});
 
 	// Features to make your build faster (when you need them)
-
-	// If your passthrough copy gets heavy and cumbersome, add this line
-	// to emulate the file copy on the dev server. Learn more:
 	// https://www.11ty.dev/docs/copy/#emulate-passthrough-copy-during-serve
 
 	// eleventyConfig.setServerPassthroughCopyBehavior("passthrough");

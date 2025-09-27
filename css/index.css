@@ -312,7 +312,43 @@ header {
 	background-color: var(--color-gray-20);
 }
 
-.svg-container {
-	display: flex;
-	justify-content: center;
-}
+  .svg-container {
+		display: flex;
+		justify-content: center;
+	}
+
+  .hover-reveal {
+	position: relative;
+	display: inline-block;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+  }
+  .hover-reveal__image {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    padding: 0.25rem;
+    background: var(--background-color);
+    border: 1px solid var(--color-gray-20);
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    width: var(--hover-reveal-width, 400px);
+    max-width: 90vw;
+    z-index: 20;
+  }
+  .hover-reveal:hover .hover-reveal__image,
+  .hover-reveal:focus-within .hover-reveal__image {
+    display: block;
+  }
+  .hover-reveal__image > img,
+  .hover-reveal__image > picture {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hover-reveal__image picture img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
